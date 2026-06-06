@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>UN Women | Erkek Katılımı ve KYS Projesi</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #1e466e; --primary-light: #2b5a8c; --accent: #e67e22;
+      --bg: #f4f7fc; --white: #ffffff; --border: #e2e8f0;
+      --text: #1e2a3e; --text2: #334155; --text3: #64748b;
+      --radius: 16px; --shadow: 0 4px 12px rgba(0,0,0,0.04); --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    /* navbar */
+    .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-flex { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+    .logo { font-weight: 800; font-size: 1.2rem; color: var(--primary); display: flex; gap: 10px; align-items: center; }
+    .nav-links { display: flex; gap: 6px; list-style: none; }
+    .nav-links a { padding: 8px 14px; border-radius: 40px; font-size: 0.85rem; font-weight: 500; transition: 0.2s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--bg); color: var(--primary); }
+    .admin-btn { background: var(--primary) !important; color: white !important; }
+    .mobile-btn { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; }
+    @media (max-width: 780px) { .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: white; flex-direction: column; padding: 16px; border-bottom: 1px solid var(--border); } .nav-links.show { display: flex; } .mobile-btn { display: block; } }
+    /* Hero */
+    .hero { padding: 80px 0 60px; background: linear-gradient(135deg, #f0f4fa, white); }
+    .hero-grid { display: grid; grid-template-columns: 1fr 0.9fr; gap: 48px; align-items: center; }
+    .hero-badge { display: inline-block; background: var(--accent); color: white; font-size: 0.7rem; font-weight: 700; padding: 4px 12px; border-radius: 40px; margin-bottom: 16px; }
+    .hero h1 { font-size: 2.5rem; font-weight: 800; color: var(--primary); line-height: 1.2; margin-bottom: 20px; }
+    .hero p { color: var(--text2); margin-bottom: 24px; max-width: 500px; }
+    .stats-row { display: flex; gap: 32px; margin: 24px 0; flex-wrap: wrap; }
+    .stat-card { background: var(--white); border-radius: 20px; padding: 12px 20px; box-shadow: var(--shadow); min-width: 100px; text-align: center; }
+    .stat-number { font-size: 1.9rem; font-weight: 800; color: var(--primary); }
+    .support-box { background: #eef2ff; border-left: 5px solid var(--accent); border-radius: 16px; padding: 20px; margin: 20px 0; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .support-box i { font-size: 2rem; color: var(--accent); }
+    .un-logo { height: 55px; object-fit: contain; }
+    .right-hero img { max-width: 100%; border-radius: 24px; box-shadow: var(--shadow-md); }
+    /* section */
+    .section { padding: 70px 0; border-top: 1px solid var(--border); }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-header h2 { font-size: 2rem; font-weight: 700; color: var(--primary); }
+    .section-divider { width: 60px; height: 3px; background: var(--accent); margin: 12px auto 0; border-radius: 4px; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+    .card { background: white; border-radius: var(--radius); padding: 24px; border: 1px solid var(--border); transition: 0.2s; box-shadow: var(--shadow); }
+    .card-icon { width: 48px; height: 48px; background: var(--bg); border-radius: 30px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: var(--primary); font-size: 1.2rem; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; padding: 10px 20px; border-radius: 40px; font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer; transition: 0.2s; }
+    .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--primary); }
+    .btn-sm { padding: 6px 14px; font-size: 0.75rem; }
+    .toolkit-list { display: flex; flex-direction: column; gap: 16px; }
+    .toolkit-item { background: white; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; border: 1px solid var(--border); }
+    .admin-panel, .login-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+    .admin-panel.active, .login-modal.active { display: flex; }
+    .admin-box { background: white; width: 90%; max-width: 1100px; max-height: 90vh; border-radius: 24px; display: flex; flex-direction: column; overflow: hidden; }
+    .admin-header { background: var(--primary); color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .admin-body { display: flex; flex: 1; overflow: hidden; flex-wrap: wrap; }
+    .admin-sidebar { width: 220px; background: var(--bg); border-right: 1px solid var(--border); padding: 16px 0; overflow-y: auto; }
+    .admin-sidebar button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 20px; border: none; background: none; text-align: left; font-weight: 500; cursor: pointer; border-left: 3px solid transparent; }
+    .admin-sidebar button.active { background: white; border-left-color: var(--accent); color: var(--primary); font-weight: 700; }
+    .admin-content { flex: 1; padding: 24px; overflow-y: auto; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 5px; color: var(--text2); }
+    input, textarea, select { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 12px; font-family: inherit; }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 10px 20px; border-radius: 40px; z-index: 3000; opacity: 0; transition: 0.2s; pointer-events: none; }
+    .toast.show { opacity: 1; }
+    .footer { background: var(--primary); color: rgba(255,255,255,0.8); text-align: center; padding: 32px 24px; font-size: 0.85rem; }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 24px; }
+    .blog-card { background: white; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); cursor: pointer; }
+    .blog-card img { width: 100%; height: 180px; object-fit: cover; background: var(--bg); }
+    .blog-body { padding: 20px; }
+    @media (max-width: 780px) { .hero-grid { grid-template-columns: 1fr; } .admin-sidebar { width: 100%; display: flex; overflow-x: auto; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-flex">
+    <div class="logo"><i class="fas fa-venus-mars"></i> <span id="siteTitle">EVAW - Erkek Katılımı</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Ana Sayfa</a></li>
+      <li><a href="#about">Proje Hakkında</a></li>
+      <li><a href="#toolkits">Araç Setleri</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">İletişim</a></li>
+      <li><a href="#" onclick="openLogin();return false" class="admin-btn"><i class="fas fa-lock"></i> Admin</a></li>
+    </ul>
+    <button class="mobile-btn" onclick="document.getElementById('navLinks').classList.toggle('show')"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge"><i class="fas fa-hands-helping"></i> UN Women Türkiye Destekli Proje</div>
+      <h1 id="heroTitle">Erkeklerin Kadına Yönelik Şiddetle Mücadeleye Katılımı ve Güçlenmesi</h1>
+      <p id="heroDesc">450 erkek kamu personeli ve topluluk liderine ulaşarak 3.000 erkeğe kademeli etki yaratmayı hedefleyen dönüştürücü program.</p>
+      <div class="stats-row" id="statsRow"></div>
+      <div class="support-box">
+        <i class="fas fa-unity"></i>
+        <div><strong>Birleşmiş Milletler Kadın Birimi (UN Women) desteğiyle</strong><br>CFP-TUR-2026-03 | Lot 2 · Bütçe: 110.000 USD</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/UN_Women_logo.svg/2560px-UN_Women_logo.svg.png" class="un-logo" alt="UN Women" style="height:50px; margin-left:auto;">
+      </div>
+    </div>
+    <div class="right-hero">
+      <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=600&auto=format" alt="erkek katılımı" style="width:100%; border-radius:24px;">
+    </div>
+  </div>
+</section>
+
+<!-- PROJE HAKKINDA -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-header"><h2>Proje Hakkında</h2><div class="section-divider"></div></div>
+    <div class="card-grid" id="aboutCards"></div>
+  </div>
+</section>
+
+<!-- ARAÇ SETLERİ (TOOLKITS) -->
+<section id="toolkits" class="section" style="background:white">
+  <div class="container">
+    <div class="section-header"><h2>Yayım Araç Setleri</h2><div class="section-divider"></div></div>
+    <div class="toolkit-list" id="toolkitList"></div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog" class="section">
+  <div class="container">
+    <div class="section-header"><h2>Blog & Haberler</h2><div class="section-divider"></div></div>
+    <div class="blog-grid" id="blogGrid"></div>
+  </div>
+</section>
+
+<!-- İLETİŞİM -->
+<section id="contact" class="section" style="background:white">
+  <div class="container">
+    <div class="section-header"><h2>İletişim</h2><div class="section-divider"></div></div>
+    <div class="card-grid" id="contactInfo"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p id="footerText">© 2026 ADAM Derneği - UN Women Türkiye iş birliği ile. Kadına Yönelik Şiddetle Mücadelede Erkek Katılımı.</p>
+  <p style="margin-top:10px; font-size:0.75rem;"><i class="fas fa-heart" style="color:#e67e22"></i> Bu proje UN Women Türkiye Ofisi'nin finansal ve teknik desteğiyle yürütülmektedir.</p>
+</footer>
+
+<div class="toast" id="toastMsg"></div>
+
+<!-- LOGIN MODAL -->
+<div class="login-modal" id="loginModal">
+  <div style="background:white; padding:32px; border-radius:24px; width:340px;">
+    <h3><i class="fas fa-lock"></i> Admin Girişi</h3>
+    <p style="font-size:0.8rem; margin-bottom:16px;">Proje içeriğini yönetmek için giriş yapın</p>
+    <div id="loginError"></div>
+    <input type="text" id="loginUsername" placeholder="Kullanıcı adı" style="margin-bottom:12px">
+    <input type="password" id="loginPassword" placeholder="Şifre" style="margin-bottom:20px">
+    <button class="btn" style="width:100%" onclick="handleLogin()">Giriş Yap</button>
+    <p style="margin-top:12px; font-size:0.7rem; text-align:center">Varsayılan: admin / admin123</p>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-box">
+    <div class="admin-header"><h3><i class="fas fa-cog"></i> Proje Yönetim Paneli</h3><button onclick="closeAdmin()" style="background:none; border:none; color:white; font-size:1.5rem;">&times;</button></div>
+    <div class="admin-body">
+      <div class="admin-sidebar" id="adminSidebar"></div>
+      <div class="admin-content" id="adminContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------------------------- DATA MODEL ----------------------------
+  let projectData = {
+    hero: { title: "Erkeklerin Kadına Yönelik Şiddetle Mücadeleye Katılımı ve Güçlenmesi", desc: "450 erkek kamu personeli ve topluluk liderine ulaşarak 3.000 erkeğe kademeli etki yaratmayı hedefleyen dönüştürücü program." },
+    stats: { direct: 450, indirect: 3000, seminars: 3, toolkits: 4 },
+    about: [
+      { icon: "fa-chalkboard-user", title: "3 Farkındalık Semineri", desc: "MoFSS personeli, muhtarlar, dini liderler için 5 modüllü cinsiyet dönüştürücü eğitim." },
+      { icon: "fa-book-open", title: "4 Özel Araç Seti", desc: "Kamu çalışanları, dini liderler, genç erkekler ve genel toplum için dijital/ basılı materyaller." },
+      { icon: "fa-chart-line", title: "Kademeli Etki", desc: "450 eğitilen ile 3.000 erkeğe ulaşan takip mekanizması ve etki değerlendirmesi." }
+    ],
+    toolkits: [
+      { name: "Kamu Personeli Rehberi", desc: "6284 sayılı Kanun uygulama akış şemaları ve vaka çalışmaları.", link: "#" },
+      { name: "Dini Liderler için Kılavuz", desc: "Cuma hutbe önerileri, topluluk diyaloğu ve farkındalık metinleri.", link: "#" },
+      { name: "Genç Erkekler Dijital Seti", desc: "Sosyal medya görselleri, kısa videolar ve akran diyaloğu rehberi.", link: "#" },
+      { name: "Toplum Bilgilendirme Seti", desc: "WhatsApp infografikleri, afişler, mahalle duyuru şablonları.", link: "#" }
+    ],
+    blog: [
+      { id: "1", title: "Deprem Bölgesinde Erkeklik Algıları", excerpt: "Post-disaster toplumsal cinsiyet normları ve müdahale stratejileri.", content: "Detaylı içerik...", date: "2026-05-10", category: "Araştırma", image: "", published: true },
+      { id: "2", title: "Law No. 6284 ve Erkek Katılımı", excerpt: "Kamu görevlilerinin rolü ve müdahil olma mekanizmaları.", content: "İçerik...", date: "2026-04-22", category: "Mevzuat", image: "", published: true }
+    ],
+    contact: { address: "Hacettepe Mah. Tanış Sk. No:2/A Hamamönü/Ankara", email: "info@adamdernegi.org", phone: "+90 312 324 6484", hours: "09:00 - 18:00" },
+    admin: { username: "admin", password: "admin123" },
+    settings: { siteTitle: "EVAW - Erkek Katılımı", footerText: "© 2026 ADAM Derneği - UN Women Türkiye" },
+    unSupportText: "Birleşmiş Milletler Kadın Birimi (UN Women) tarafından desteklenmektedir. CFP-TUR-2026-03 kapsamında teknik ve mali iş birliği."
+  };
+
+  function saveToLocal() { localStorage.setItem("evaProjectData", JSON.stringify(projectData)); renderUI(); showToast("Kaydedildi ✓"); }
+  function loadLocal() { let raw = localStorage.getItem("evaProjectData"); if (raw) { try { let p = JSON.parse(raw); projectData = p; } catch(e){} } renderUI(); }
+  function showToast(msg) { let t = document.getElementById("toastMsg"); t.innerText = msg; t.classList.add("show"); setTimeout(()=> t.classList.remove("show"), 2000); }
+  
+  function renderUI() {
+    document.getElementById("heroTitle").innerText = projectData.hero.title;
+    document.getElementById("heroDesc").innerText = projectData.hero.desc;
+    document.getElementById("siteTitle").innerText = projectData.settings.siteTitle;
+    document.getElementById("footerText").innerHTML = projectData.settings.footerText;
+    // stats
+    let s = projectData.stats;
+    document.getElementById("statsRow").innerHTML = `
+      <div class="stat-card"><div class="stat-number">${s.direct || 0}</div><div>Doğrudan Erişim</div><small>hedef 450</small></div>
+      <div class="stat-card"><div class="stat-number">${s.indirect || 0}</div><div>Dolaylı Erişim</div><small>hedef 3000</small></div>
+      <div class="stat-card"><div class="stat-number">${s.seminars || 0}</div><div>Seminer</div></div>
+      <div class="stat-card"><div class="stat-number">${s.toolkits || 0}</div><div>Araç Seti</div></div>
+    `;
+    // about cards
+    let aboutHtml = projectData.about.map(a => `<div class="card"><div class="card-icon"><i class="fas ${a.icon}"></i></div><h3>${a.title}</h3><p>${a.desc}</p></div>`).join('');
+    document.getElementById("aboutCards").innerHTML = aboutHtml || '<div class="card">Proje bilgisi eklenmemiş.</div>';
+    // toolkits
+    let tkHtml = projectData.toolkits.map(t => `<div class="toolkit-item"><div><strong><i class="fas fa-download"></i> ${t.name}</strong><p style="font-size:0.85rem; color:var(--text2)">${t.desc}</p></div><a href="${t.link}" class="btn btn-sm">İndir</a></div>`).join('');
+    document.getElementById("toolkitList").innerHTML = tkHtml || "Henüz araç seti eklenmedi.";
+    // blog
+    let blogHtml = projectData.blog.filter(b=>b.published!==false).map(b => `<div class="blog-card" onclick="openBlogModal('${b.id}')"><div class="blog-image" style="height:150px; background:#e9ecef; display:flex;align-items:center;justify-content:center;">${b.image?`<img src="${b.image}">`:'<i class="fas fa-newspaper fa-2x"></i>'}</div><div class="blog-body"><h3>${escapeHtml(b.title)}</h3><p>${escapeHtml(b.excerpt)}</p><div style="font-size:0.7rem;color:var(--text3);margin-top:8px">${b.date} · ${b.category||''}</div></div></div>`).join('');
+    document.getElementById("blogGrid").innerHTML = blogHtml || "<div>Blog yazısı bulunmamaktadır.</div>";
+    // contact
+    let c = projectData.contact;
+    document.getElementById("contactInfo").innerHTML = `
+      <div class="card"><i class="fas fa-map-marker-alt" style="font-size:1.5rem"></i><h3>Adres</h3><p>${c.address}</p></div>
+      <div class="card"><i class="fas fa-envelope"></i><h3>E-posta</h3><p>${c.email}</p></div>
+      <div class="card"><i class="fas fa-phone"></i><h3>Telefon</h3><p>${c.phone}</p></div>
+      <div class="card"><i class="fas fa-clock"></i><h3>Çalışma Saatleri</h3><p>${c.hours}</p></div>
+    `;
+  }
+  function escapeHtml(str){ if(!str) return ''; return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+  // blog modal
+  function openBlogModal(id){ let post = projectData.blog.find(p=>p.id==id); if(!post) return; alert(post.title + "\n\n" + (post.content || post.excerpt)); }
+  
+  // ---------- ADMIN PANEL ----------
+  let adminTabs = ["hero","istatistikler","hakkimizda","toolkits","blog","iletisim","ayarlar","unsupport"];
+  function buildSidebar(){ 
+    let bar = document.getElementById("adminSidebar");
+    bar.innerHTML = adminTabs.map(tab=>`<button data-tab="${tab}" class="${tab===currentTab?'active':''}" onclick="showAdminTab('${tab}')"><i class="fas ${getIcon(tab)}"></i> ${getLabel(tab)}</button>`).join('');
+  }
+  function getIcon(tab){ let map={hero:"fa-star",istatistikler:"fa-chart-simple",hakkimizda:"fa-circle-info",toolkits:"fa-toolbox",blog:"fa-pen",iletisim:"fa-address-card",ayarlar:"fa-sliders",unsupport:"fa-hand-holding-heart"}; return map[tab]||"fa-cog"; }
+  function getLabel(tab){ let map={hero:"Proje Başlığı",istatistikler:"Etki Hedefleri",hakkimizda:"Hakkında Kartları",toolkits:"Araç Setleri",blog:"Blog Yazıları",iletisim:"İletişim",ayarlar:"Site Ayarları",unsupport:"UN Women Desteği"}; return map[tab]; }
+  let currentTab = "hero";
+  function showAdminTab(tab){
+    currentTab = tab; buildSidebar();
+    let container = document.getElementById("adminContent");
+    if(tab === "hero") container.innerHTML = `<h3>Proje Hero Bilgisi</h3><div class="form-group"><label>Başlık</label><input id="heroTitleInput" value="${escapeHtml(projectData.hero.title)}"></div><div class="form-group"><label>Açıklama</label><textarea id="heroDescInput" rows="3">${escapeHtml(projectData.hero.desc)}</textarea></div><button class="btn" onclick="updateHero()">Kaydet</button>`;
+    else if(tab === "istatistikler") container.innerHTML = `<h3>Hedef & Etki Sayıları</h3><div class="form-group"><label>Doğrudan Erişim (hedef 450)</label><input type="number" id="statDirect" value="${projectData.stats.direct}"></div><div class="form-group"><label>Dolaylı Erişim (hedef 3000)</label><input type="number" id="statIndirect" value="${projectData.stats.indirect}"></div><div class="form-group"><label>Seminer Sayısı</label><input type="number" id="statSeminars" value="${projectData.stats.seminars}"></div><div class="form-group"><label>Araç Seti Sayısı</label><input type="number" id="statToolkits" value="${projectData.stats.toolkits}"></div><button class="btn" onclick="updateStats()">Güncelle</button>`;
+    else if(tab === "hakkimizda") container.innerHTML = `<h3>Hakkımızda Kartları (3 adet)</h3><div id="aboutCardsAdmin"></div><button class="btn" onclick="saveAboutCards()">Kartları Kaydet</button>`;
+    else if(tab === "toolkits") container.innerHTML = `<h3>Araç Setleri</h3><div id="toolkitsListAdmin"></div><button class="btn" onclick="addToolkit()">+ Yeni Araç Seti Ekle</button>`;
+    else if(tab === "blog") container.innerHTML = `<h3>Blog Yönetimi</h3><div id="blogListAdmin"></div><button class="btn" onclick="addBlogPost()">+ Yeni Yazı</button>`;
+    else if(tab === "iletisim") container.innerHTML = `<h3>İletişim Bilgileri</h3><div class="form-group"><label>Adres</label><input id="contactAddr" value="${escapeHtml(projectData.contact.address)}"></div><div class="form-group"><label>Email</label><input id="contactEmail" value="${escapeHtml(projectData.contact.email)}"></div><div class="form-group"><label>Telefon</label><input id="contactPhone" value="${escapeHtml(projectData.contact.phone)}"></div><div class="form-group"><label>Mesai</label><input id="contactHours" value="${escapeHtml(projectData.contact.hours)}"></div><button class="btn" onclick="updateContact()">Kaydet</button>`;
+    else if(tab === "ayarlar") container.innerHTML = `<h3>Site Ayarları</h3><div class="form-group"><label>Site Başlığı (Navbar)</label><input id="setTitle" value="${escapeHtml(projectData.settings.siteTitle)}"></div><div class="form-group"><label>Footer Metni</label><input id="setFooter" value="${escapeHtml(projectData.settings.footerText)}"></div><div class="form-group"><label>Admin Kullanıcı Adı</label><input id="adminUser" value="${escapeHtml(projectData.admin.username)}"></div><div class="form-group"><label>Yeni Şifre (boş bırakılırsa değişmez)</label><input type="password" id="adminPass"></div><button class="btn" onclick="saveSettings()">Ayarları Kaydet</button><hr><button class="btn btn-outline" onclick="exportData()">JSON Dışa Aktar</button> <button class="btn btn-outline" onclick="importDataTrigger()">JSON İçe Aktar</button> <input type="file" id="importFile" style="display:none" accept=".json" onchange="importDataFile(event)">`;
+    else if(tab === "unsupport") container.innerHTML = `<h3>UN Women Destek Bilgisi</h3><div class="support-box" style="background:#fef5e7"><i class="fas fa-unicef"></i> ${projectData.unSupportText}</div><div class="form-group"><label>Destek Metni (Görsel Altı)</label><textarea id="unSupportTextArea" rows="3">${escapeHtml(projectData.unSupportText)}</textarea></div><div class="form-group"><label>UN Women Logo URL (isteğe bağlı)</label><input id="unLogoUrl" placeholder="https://..."></div><button class="btn" onclick="saveUnSupport()">Destek Metnini Güncelle</button>`;
+    if(tab === "hakkimizda") renderAboutCardsAdmin();
+    if(tab === "toolkits") renderToolkitsAdmin();
+    if(tab === "blog") renderBlogAdmin();
+  }
+  function renderAboutCardsAdmin(){
+    let div = document.getElementById("aboutCardsAdmin");
+    div.innerHTML = projectData.about.map((card, idx)=>`<div class="card" style="margin-bottom:16px"><div><input placeholder="İkon sınıfı (fas fa-chalkboard-user)" value="${card.icon}" id="abIcon${idx}"></div><div><input placeholder="Başlık" value="${card.title}" id="abTitle${idx}" style="margin:8px 0"></div><textarea rows="2" placeholder="Açıklama" id="abDesc${idx}">${card.desc}</textarea><button class="btn btn-sm btn-outline" onclick="removeAboutCard(${idx})" style="margin-top:8px">Sil</button></div>`).join('');
+    div.innerHTML += `<button class="btn btn-sm" onclick="addAboutCard()">+ Kart Ekle</button>`;
+  }
+  function renderToolkitsAdmin(){
+    let div = document.getElementById("toolkitsListAdmin");
+    div.innerHTML = projectData.toolkits.map((t, idx)=>`<div class="toolkit-item" style="margin-bottom:12px"><div><input placeholder="Ad" value="${escapeHtml(t.name)}" id="tkName${idx}"><textarea placeholder="Açıklama" id="tkDesc${idx}" rows="2">${escapeHtml(t.desc)}</textarea><input placeholder="Link (# veya url)" value="${t.link}" id="tkLink${idx}"></div><button class="btn btn-sm btn-danger" onclick="removeToolkit(${idx})">Sil</button></div>`).join('');
+    window.toolkitCount = projectData.toolkits.length;
+  }
+  function renderBlogAdmin(){
+    let div = document.getElementById("blogListAdmin");
+    div.innerHTML = projectData.blog.map((b,idx)=>`<div class="card" style="margin-bottom:12px"><input placeholder="Başlık" id="blogTitle${idx}" value="${escapeHtml(b.title)}"><textarea placeholder="Özet" id="blogExcerpt${idx}">${escapeHtml(b.excerpt)}</textarea><input placeholder="Tarih YYYY-AA-GG" id="blogDate${idx}" value="${b.date}"><label><input type="checkbox" id="blogPub${idx}" ${b.published!==false?'checked':''}> Yayında</label><button class="btn btn-sm btn-danger" onclick="deleteBlogPost(${idx})">Sil</button><button class="btn btn-sm btn-outline" onclick="updateBlogPost(${idx})">Güncelle</button></div>`).join('');
+    window.blogLen = projectData.blog.length;
+  }
+  window.updateHero = function(){ projectData.hero.title = document.getElementById("heroTitleInput").value; projectData.hero.desc = document.getElementById("heroDescInput").value; saveToLocal(); };
+  window.updateStats = function(){ projectData.stats.direct = parseInt(document.getElementById("statDirect").value)||0; projectData.stats.indirect = parseInt(document.getElementById("statIndirect").value)||0; projectData.stats.seminars = parseInt(document.getElementById("statSeminars").value)||0; projectData.stats.toolkits = parseInt(document.getElementById("statToolkits").value)||0; saveToLocal(); };
+  window.saveAboutCards = function(){ let newCards = []; let i=0; while(document.getElementById(`abIcon${i}`)){ newCards.push({ icon: document.getElementById(`abIcon${i}`).value, title: document.getElementById(`abTitle${i}`).value, desc: document.getElementById(`abDesc${i}`).value }); i++; } if(newCards.length) projectData.about = newCards; saveToLocal(); showAdminTab("hakkimizda"); };
+  window.addAboutCard = function(){ projectData.about.push({ icon:"fas fa-bullhorn", title:"Yeni Başlık", desc:"Açıklama" }); saveToLocal(); showAdminTab("hakkimizda"); };
+  window.removeAboutCard = function(idx){ projectData.about.splice(idx,1); saveToLocal(); showAdminTab("hakkimizda"); };
+  window.saveToolkits = function(){ let newTks = []; for(let i=0;i<projectData.toolkits.length;i++){ newTks.push({ name: document.getElementById(`tkName${i}`).value, desc: document.getElementById(`tkDesc${i}`).value, link: document.getElementById(`tkLink${i}`).value }); } projectData.toolkits = newTks; saveToLocal(); showAdminTab("toolkits"); };
+  window.addToolkit = function(){ projectData.toolkits.push({ name:"Yeni Araç Seti", desc:"Açıklama", link:"#" }); saveToLocal(); showAdminTab("toolkits"); };
+  window.removeToolkit = function(idx){ projectData.toolkits.splice(idx,1); saveToLocal(); showAdminTab("toolkits"); };
+  window.updateBlogPost = function(idx){ projectData.blog[idx].title = document.getElementById(`blogTitle${idx}`).value; projectData.blog[idx].excerpt = document.getElementById(`blogExcerpt${idx}`).value; projectData.blog[idx].date = document.getElementById(`blogDate${idx}`).value; projectData.blog[idx].published = document.getElementById(`blogPub${idx}`).checked; saveToLocal(); showAdminTab("blog"); };
+  window.addBlogPost = function(){ projectData.blog.unshift({ id: Date.now()+"", title:"Yeni Yazı", excerpt:"Özet", content:"İçerik", date: new Date().toISOString().slice(0,10), category:"Genel", published:true }); saveToLocal(); showAdminTab("blog"); };
+  window.deleteBlogPost = function(idx){ if(confirm("Silinsin mi?")){ projectData.blog.splice(idx,1); saveToLocal(); showAdminTab("blog"); } };
+  window.updateContact = function(){ projectData.contact.address = document.getElementById("contactAddr").value; projectData.contact.email = document.getElementById("contactEmail").value; projectData.contact.phone = document.getElementById("contactPhone").value; projectData.contact.hours = document.getElementById("contactHours").value; saveToLocal(); };
+  window.saveSettings = function(){ projectData.settings.siteTitle = document.getElementById("setTitle").value; projectData.settings.footerText = document.getElementById("setFooter").value; let newUser = document.getElementById("adminUser").value; let newPw = document.getElementById("adminPass").value; if(newUser) projectData.admin.username = newUser; if(newPw && newPw.length>=4) projectData.admin.password = newPw; saveToLocal(); showAdminTab("ayarlar"); };
+  window.saveUnSupport = function(){ projectData.unSupportText = document.getElementById("unSupportTextArea").value; saveToLocal(); showToast("UN Women destek metni güncellendi"); renderUI(); };
+  function exportData(){ let dataStr = JSON.stringify(projectData, null,2); let blob = new Blob([dataStr],{type:"application/json"}); let a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="unwomen_project.json"; a.click(); }
+  function importDataTrigger(){ document.getElementById("importFile").click(); }
+  function importDataFile(e){ let file = e.target.files[0]; if(!file) return; let reader = new FileReader(); reader.onload = function(ev){ try{ let imported = JSON.parse(ev.target.result); if(imported.hero && imported.stats && imported.admin) projectData = imported; else throw new Error(); saveToLocal(); showAdminTab("ayarlar"); showToast("Veri içe aktarıldı"); }catch(e){ showToast("Geçersiz dosya"); } }; reader.readAsText(file); }
+  
+  // Auth
+  function openLogin(){ document.getElementById("loginModal").style.display="flex"; }
+  function closeLogin(){ document.getElementById("loginModal").style.display="none"; }
+  function handleLogin(){ let user = document.getElementById("loginUsername").value; let pass = document.getElementById("loginPassword").value; if(user === projectData.admin.username && pass === projectData.admin.password){ closeLogin(); document.getElementById("adminPanel").classList.add("active"); buildSidebar(); showAdminTab("hero"); } else { document.getElementById("loginError").innerHTML = '<span style="color:#e74c3c">Hatalı giriş</span>'; } }
+  function closeAdmin(){ document.getElementById("adminPanel").classList.remove("active"); renderUI(); }
+  window.onclick = function(e){ if(e.target.classList.contains("admin-panel")) closeAdmin(); if(e.target.classList.contains("login-modal")) closeLogin(); }
+  
+  loadLocal();
+</script>
+</body>
+</html>
